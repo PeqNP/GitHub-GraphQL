@@ -11,9 +11,21 @@ class GraphQLTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
     }
 
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "TableViewCell") as? GraphQLTableViewCell else {
+            return UITableViewCell()
+        }
+
+        return cell
+    }
 
 }
 
+class GraphQLTableViewCell: UITableViewCell {
+    @IBOutlet weak var avatarImageView: UIImageView!
+    @IBOutlet weak var repositoryNameLabel: UILabel!
+    @IBOutlet weak var authorNameLabel: UILabel!
+    @IBOutlet weak var ratingLabel: UILabel!
+}

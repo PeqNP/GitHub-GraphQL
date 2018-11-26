@@ -18,13 +18,57 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="TableViewCell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TableViewCell" id="IOz-BI-XvF">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="TableViewCell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TableViewCell" id="IOz-BI-XvF" customClass="GraphQLTableViewCell" customModule="GraphQLPagination" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="IOz-BI-XvF" id="Y8C-Jm-yyl">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="HoN-cL-9ls">
+                                            <rect key="frame" x="0.0" y="0.0" width="44" height="43.5"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="44" id="ju5-UD-FJS"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Repository Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Te6-tC-2hw">
+                                            <rect key="frame" x="64" y="0.0" width="291" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Author" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Shl-yy-x4W">
+                                            <rect key="frame" x="64" y="22" width="51.5" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rating" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vxl-gw-AtF">
+                                            <rect key="frame" x="135.5" y="22" width="49" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="Vxl-gw-AtF" firstAttribute="top" secondItem="Shl-yy-x4W" secondAttribute="top" id="5Zy-vU-66W"/>
+                                        <constraint firstItem="Te6-tC-2hw" firstAttribute="leading" secondItem="HoN-cL-9ls" secondAttribute="trailing" constant="20" id="9eB-c0-1ND"/>
+                                        <constraint firstItem="Shl-yy-x4W" firstAttribute="leading" secondItem="Te6-tC-2hw" secondAttribute="leading" id="FGD-AA-ofV"/>
+                                        <constraint firstItem="Shl-yy-x4W" firstAttribute="top" secondItem="Te6-tC-2hw" secondAttribute="bottom" constant="1" id="JW5-xO-n2A"/>
+                                        <constraint firstAttribute="bottom" secondItem="HoN-cL-9ls" secondAttribute="bottom" id="P37-YU-5w0"/>
+                                        <constraint firstItem="HoN-cL-9ls" firstAttribute="leading" secondItem="Y8C-Jm-yyl" secondAttribute="leading" id="aPc-k4-ona"/>
+                                        <constraint firstItem="Vxl-gw-AtF" firstAttribute="leading" secondItem="Shl-yy-x4W" secondAttribute="trailing" constant="20" id="ddg-vg-ZZI"/>
+                                        <constraint firstAttribute="trailing" secondItem="Te6-tC-2hw" secondAttribute="trailing" constant="20" id="jZW-ay-iHo"/>
+                                        <constraint firstItem="Te6-tC-2hw" firstAttribute="top" secondItem="HoN-cL-9ls" secondAttribute="top" id="o8Y-aW-27V"/>
+                                        <constraint firstItem="HoN-cL-9ls" firstAttribute="top" secondItem="Y8C-Jm-yyl" secondAttribute="top" id="qiM-nH-mz1"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="authorNameLabel" destination="Shl-yy-x4W" id="Yez-6f-z59"/>
+                                    <outlet property="avatarImageView" destination="HoN-cL-9ls" id="JA2-XH-6TJ"/>
+                                    <outlet property="ratingLabel" destination="Vxl-gw-AtF" id="uPn-sE-TX9"/>
+                                    <outlet property="repositoryNameLabel" destination="Te6-tC-2hw" id="ywp-xp-raS"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
