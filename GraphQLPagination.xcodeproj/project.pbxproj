@@ -8,11 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		0717682621AC932900ED52C9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0717682521AC932900ED52C9 /* AppDelegate.swift */; };
-		0717682821AC932900ED52C9 /* GraphQLTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0717682721AC932900ED52C9 /* GraphQLTableViewController.swift */; };
 		0717682B21AC932900ED52C9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0717682921AC932900ED52C9 /* Main.storyboard */; };
 		0717682D21AC932A00ED52C9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0717682C21AC932A00ED52C9 /* Assets.xcassets */; };
 		0717683021AC932A00ED52C9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0717682E21AC932A00ED52C9 /* LaunchScreen.storyboard */; };
 		0717683B21AC932B00ED52C9 /* GraphQLPaginationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0717683A21AC932B00ED52C9 /* GraphQLPaginationTests.swift */; };
+		07AAC73F21AC99B400DE3247 /* GraphQLTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07AAC73E21AC99B400DE3247 /* GraphQLTableViewController.swift */; };
 		C254E46E92229F3C68C248F7 /* Pods_GraphQLPagination.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABA7C962337858B6D753D1C2 /* Pods_GraphQLPagination.framework */; };
 /* End PBXBuildFile section */
 
@@ -29,7 +29,6 @@
 /* Begin PBXFileReference section */
 		0717682221AC932900ED52C9 /* GraphQLPagination.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GraphQLPagination.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0717682521AC932900ED52C9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		0717682721AC932900ED52C9 /* GraphQLTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphQLTableViewController.swift; sourceTree = "<group>"; };
 		0717682A21AC932900ED52C9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0717682C21AC932A00ED52C9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0717682F21AC932A00ED52C9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -37,6 +36,7 @@
 		0717683621AC932B00ED52C9 /* GraphQLPaginationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GraphQLPaginationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0717683A21AC932B00ED52C9 /* GraphQLPaginationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphQLPaginationTests.swift; sourceTree = "<group>"; };
 		0717683C21AC932B00ED52C9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		07AAC73E21AC99B400DE3247 /* GraphQLTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphQLTableViewController.swift; sourceTree = "<group>"; };
 		379073FE0FA099BCB1E2996E /* Pods-GraphQLPagination.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GraphQLPagination.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GraphQLPagination/Pods-GraphQLPagination.debug.xcconfig"; sourceTree = "<group>"; };
 		4B7BC74F6B61A780B28BD4AB /* Pods-GraphQLPagination.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GraphQLPagination.release.xcconfig"; path = "Pods/Target Support Files/Pods-GraphQLPagination/Pods-GraphQLPagination.release.xcconfig"; sourceTree = "<group>"; };
 		ABA7C962337858B6D753D1C2 /* Pods_GraphQLPagination.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GraphQLPagination.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -84,11 +84,7 @@
 		0717682421AC932900ED52C9 /* GraphQLPagination */ = {
 			isa = PBXGroup;
 			children = (
-				0717682521AC932900ED52C9 /* AppDelegate.swift */,
-				0717682721AC932900ED52C9 /* GraphQLTableViewController.swift */,
-				0717682921AC932900ED52C9 /* Main.storyboard */,
-				0717682C21AC932A00ED52C9 /* Assets.xcassets */,
-				0717682E21AC932A00ED52C9 /* LaunchScreen.storyboard */,
+				07AAC73A21AC991400DE3247 /* App */,
 				0717683121AC932A00ED52C9 /* Info.plist */,
 			);
 			path = GraphQLPagination;
@@ -101,6 +97,34 @@
 				0717683C21AC932B00ED52C9 /* Info.plist */,
 			);
 			path = GraphQLPaginationTests;
+			sourceTree = "<group>";
+		};
+		07AAC73A21AC991400DE3247 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				07AAC73C21AC994900DE3247 /* Resources */,
+				07AAC73B21AC993200DE3247 /* Views */,
+				0717682521AC932900ED52C9 /* AppDelegate.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		07AAC73B21AC993200DE3247 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				07AAC73E21AC99B400DE3247 /* GraphQLTableViewController.swift */,
+				0717682E21AC932A00ED52C9 /* LaunchScreen.storyboard */,
+				0717682921AC932900ED52C9 /* Main.storyboard */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		07AAC73C21AC994900DE3247 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				0717682C21AC932A00ED52C9 /* Assets.xcassets */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		3BB5DB80E88720E025D837E7 /* Frameworks */ = {
@@ -264,7 +288,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0717682821AC932900ED52C9 /* GraphQLTableViewController.swift in Sources */,
+				07AAC73F21AC99B400DE3247 /* GraphQLTableViewController.swift in Sources */,
 				0717682621AC932900ED52C9 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
