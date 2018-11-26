@@ -90,6 +90,7 @@
 		0717682421AC932900ED52C9 /* GraphQLPagination */ = {
 			isa = PBXGroup;
 			children = (
+				07AAC74821AC9FF300DE3247 /* Service */,
 				07AAC74021AC99FD00DE3247 /* Foundation */,
 				07AAC73A21AC991400DE3247 /* App */,
 				0717683121AC932A00ED52C9 /* Info.plist */,
@@ -150,6 +151,13 @@
 				07AAC74621AC9BE400DE3247 /* GraphQLCommandAndControl.swift */,
 			);
 			path = ListGraphQL;
+			sourceTree = "<group>";
+		};
+		07AAC74821AC9FF300DE3247 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Service;
 			sourceTree = "<group>";
 		};
 		3BB5DB80E88720E025D837E7 /* Frameworks */ = {
@@ -276,12 +284,20 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-GraphQLPagination/Pods-GraphQLPagination-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Apollo/Apollo.framework",
+				"${BUILT_PRODUCTS_DIR}/ApolloAlamofire/ApolloAlamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/BrightFutures/BrightFutures.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
+				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Apollo.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ApolloAlamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BrightFutures.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
