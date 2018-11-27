@@ -6,8 +6,29 @@
 //  Copyright © 2018 Eric Chamberlain. All rights reserved.
 //
 
+import Alamofire
+import BrightFutures
 import Foundation
 
-class JSONRequestHandler {
+class JSONRequestHandler: RequestHandler {
     
+    func request<T: Decodable>(urlRequest: URLRequest, _ type: T.Type) -> Future<T, NetworkError> {
+        let promise = Promise<T, NetworkError>()
+        Alamofire.request(urlRequest).responseJSON { (response) in
+            guard let data = response.data else {
+                print(response.error?.localizedDescription ?? "Error")
+                return
+            }
+            print(String(bytes: data, encoding: .utf8) ?? "")
+            let decoder = JSONDecoder()
+            guard let response = try? decoder.decode(T.self, from: data) else {
+                promise.failure(.failedToDecode)
+                return
+            }
+            
+            promise.success(response)
+        }
+        
+        return promise.future
+    }
 }

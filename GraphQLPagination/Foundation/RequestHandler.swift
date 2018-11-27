@@ -6,8 +6,13 @@
 //  Copyright © 2018 Eric Chamberlain. All rights reserved.
 //
 
+import BrightFutures
 import Foundation
 
+enum NetworkError: Error {
+    case failedToDecode
+}
+
 protocol RequestHandler {
-//    func request(url: URL) -> Promise
+    func request<T: Decodable>(urlRequest: URLRequest, _ type: T.Type) -> Future<T, NetworkError>
 }

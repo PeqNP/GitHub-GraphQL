@@ -9,12 +9,13 @@
 import BrightFutures
 import Foundation
 
-enum GraphQLServiceError: Error {
-    case failedToQueryGraphs
+enum RepositoryListServiceError: Error {
+    case failedToQueryRepositories
+    case unknown
 }
 
 protocol RepositoryService {
-    func repositories(from: Int, limit: Int) -> Future<[Repository], GraphQLServiceError>
+    func repositories(from: Int, limit: Int) -> Future<[Repository], RepositoryListServiceError>
 }
 
 // The `GitHubGraphQLService` can be extended in the App or Service layer to ensure that it conforms to what the CommandAndControl class requires.

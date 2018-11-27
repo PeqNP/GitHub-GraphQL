@@ -11,11 +11,15 @@ import BrightFutures
 import Foundation
 
 private enum Constant {
-    static let githubToken = ""
+    // Put your GitHub bearer token here
+    static let githubToken = "e054e5be10ac847cc69b342f0c05f3cc6cbf9912"
 }
 
 class GitHubGraphQLService {
-        
+    
+    let requestHandler: RequestHandler = JSONRequestHandler()
+    
+    // Structure we get back from the GitHub GraphQL service
     struct RepositoryResponse: Decodable {
         struct DataResponse: Decodable {
             let search: SearchResponse?
@@ -42,14 +46,16 @@ class GitHubGraphQLService {
         let data: DataResponse?
     }
     
-    func repositories(from: Int, limit: Int) -> Future<[Repository], GraphQLServiceError> {
-        
-        let url = URL(string: "https://api.github.com/graphql")!
+    func repositories(from: Int, limit: Int) -> Future<[Repository], RepositoryListServiceError> {
+        let promise = Promise<[Repository], RepositoryListServiceError>()
+
+        guard let url = URL(string: "https://api.github.com/graphql") else {
+            promise.failure(.unknown)
+            return promise.future
+        }
         let headers: [String: String] = [
             "Authorization": "Bearer \(Constant.githubToken)"
         ]
-        var urlRequest = try! URLRequest(url: url, method: .post, headers: headers)
-        
         let query = """
         query {
             search(query: "graphql", type: REPOSITORY, first: 10) {
@@ -69,19 +75,15 @@ class GitHubGraphQLService {
         let body: [String: String] = [
             "query": query
         ]
+
+        guard var urlRequest = try? URLRequest(url: url, method: .post, headers: headers) else {
+            promise.failure(.unknown)
+            return promise.future
+        }
         urlRequest.httpBody = body.asData
         
-        let promise = Promise<[Repository], GraphQLServiceError>()
-        
-        Alamofire.request(urlRequest).responseJSON { (response) in
-            guard let data = response.data else {
-                print(response.error?.localizedDescription ?? "Error")
-                return
-            }
-            print(String(bytes: data, encoding: .utf8) ?? "")
-            let decoder = JSONDecoder()
-            let response = try? decoder.decode(RepositoryResponse.self, from: data)
-            guard let edges = response?.data?.search?.edges else {
+        requestHandler.request(urlRequest: urlRequest, GitHubGraphQLService.RepositoryResponse.self).onSuccess { (response) in
+            guard let edges = response.data?.search?.edges else {
                 return promise.success([Repository]())
             }
             let repositories: [Repository] = edges.map { (node: GitHubGraphQLService.RepositoryResponse.SearchNode) -> Repository in
