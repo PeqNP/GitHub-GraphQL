@@ -43,7 +43,7 @@ class GraphQLCommandAndControl: GraphQLController {
 import Alamofire
 
 private enum Constant {
-    static let githubToken = "09f3c68a4daec360eb2badf78fdc66824911c52d"
+    static let githubToken = ""
 }
 
 extension Dictionary where Key == String {
@@ -101,12 +101,12 @@ class GitHubGraphQLService: GraphQLService {
             guard let edges = response?.data?.search?.edges else {
                 return promise.success([Repository]())
             }
-            let repositories: [Repository] = edges.map { (node: GitHubGraphQLService.RepositoryResponse.SearchedNode) -> Repository in
+            let repositories: [Repository] = edges.map { (node: GitHubGraphQLService.RepositoryResponse.SearchNode) -> Repository in
                 return Repository(
-                    name: node.name ?? "",
-                    ownerAvatarURL: URL(string: node.owner?.avatarUrl ?? ""),
-                    ownerLogin: node.owner?.login ?? "",
-                    totalStars: node.stargazers?.totalCount ?? 0
+                    name: node.node?.name ?? "",
+                    ownerAvatarURL: URL(string: node.node?.owner?.avatarUrl ?? ""),
+                    ownerLogin: node.node?.owner?.login ?? "",
+                    totalStars: node.node?.stargazers?.totalCount ?? 0
                 )
             }
             
@@ -123,7 +123,7 @@ extension GitHubGraphQLService {
             let search: SearchResponse?
         }
         struct SearchResponse: Decodable {
-            let edges: [SearchedNode]?
+            let edges: [SearchNode]?
         }
         struct SearchNode: Decodable {
             let node: SearchedNode?
