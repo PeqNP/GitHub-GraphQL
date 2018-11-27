@@ -120,7 +120,7 @@
 		07AAC73B21AC993200DE3247 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				07AAC74521AC9A5B00DE3247 /* ListGraphQL */,
+				07AAC74521AC9A5B00DE3247 /* ListRepositories */,
 				0717682E21AC932A00ED52C9 /* LaunchScreen.storyboard */,
 			);
 			path = Views;
@@ -143,14 +143,14 @@
 			path = Foundation;
 			sourceTree = "<group>";
 		};
-		07AAC74521AC9A5B00DE3247 /* ListGraphQL */ = {
+		07AAC74521AC9A5B00DE3247 /* ListRepositories */ = {
 			isa = PBXGroup;
 			children = (
 				07AAC73E21AC99B400DE3247 /* GraphQLTableViewController.swift */,
 				0717682921AC932900ED52C9 /* Main.storyboard */,
 				07AAC74621AC9BE400DE3247 /* GraphQLCommandAndControl.swift */,
 			);
-			path = ListGraphQL;
+			path = ListRepositories;
 			sourceTree = "<group>";
 		};
 		07AAC74821AC9FF300DE3247 /* Service */ = {

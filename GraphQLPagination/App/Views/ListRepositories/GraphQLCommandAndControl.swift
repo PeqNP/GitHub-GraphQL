@@ -43,7 +43,7 @@ class GraphQLCommandAndControl: GraphQLController {
 import Alamofire
 
 private enum Constant {
-    static let githubToken = "023af7876285cbd7d00204e6d2abc4e876c3f7e7"
+    static let githubToken = "09f3c68a4daec360eb2badf78fdc66824911c52d"
 }
 
 extension Dictionary where Key == String {
@@ -87,6 +87,9 @@ class GitHubGraphQLService: GraphQLService {
             "query": query
         ]
         urlRequest.httpBody = body.asData
+        
+        let promise = Promise<[Repository], GraphQLServiceError>()
+        
         Alamofire.request(urlRequest).responseJSON { (response) in
             guard let data = response.data else {
                 print(response.error?.localizedDescription ?? "Error")
@@ -94,20 +97,23 @@ class GitHubGraphQLService: GraphQLService {
             }
             print(String(bytes: data, encoding: .utf8) ?? "")
             let decoder = JSONDecoder()
-            let repository = try? decoder.decode(RepositoryResponse.self, from: data)
+            let response = try? decoder.decode(RepositoryResponse.self, from: data)
+            guard let edges = response?.data?.search?.edges else {
+                return promise.success([Repository]())
+            }
+            let repositories: [Repository] = edges.map { (node: GitHubGraphQLService.RepositoryResponse.SearchedNode) -> Repository in
+                return Repository(
+                    name: node.name ?? "",
+                    ownerAvatarURL: URL(string: node.owner?.avatarUrl ?? ""),
+                    ownerLogin: node.owner?.login ?? "",
+                    totalStars: node.stargazers?.totalCount ?? 0
+                )
+            }
             
+            return promise.success(repositories)
         }
         
-        let repositories: [Repository] = [
-            Repository(
-                name: "A name",
-                ownerAvatarURL: URL(string: "https://www.slrlounge.com/wp-content/uploads/2016/10/pounce-cat-seth-casteel-kitten-holly6.jpg")!,
-                ownerLogin: "Author name",
-                totalStars: 1000
-            )
-        ]
-        
-        return Future(value: repositories)
+        return promise.future
     }
 }
 
@@ -124,6 +130,7 @@ extension GitHubGraphQLService {
         }
         struct SearchedNode: Decodable {
             let name: String?
+            let stargazers: Stargazers?
             let owner: Owner?
         }
         struct Owner: Decodable {
@@ -136,5 +143,4 @@ extension GitHubGraphQLService {
         
         let data: DataResponse?
     }
-
 }

@@ -15,7 +15,7 @@ protocol GraphQLController {
 
 struct Repository {
     let name: String
-    let ownerAvatarURL: URL
+    let ownerAvatarURL: URL?
     let ownerLogin: String
     let totalStars: Int
 }
