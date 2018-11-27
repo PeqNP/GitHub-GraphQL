@@ -26,6 +26,8 @@ class RepositoryListCommandAndControl: RepositoryListController {
     private let service: RepositoryService = GitHubGraphQLService()
     
     private weak var _delegate: RepositoryListControllerDelegate?
+    private var limit: Int = 0
+    private var cursor: Int = 0
     
     var delegate: RepositoryListControllerDelegate? {
         set {
@@ -36,9 +38,24 @@ class RepositoryListCommandAndControl: RepositoryListController {
         }
     }
     
-    func loadGraphQL() {
-        service.repositories(from: 0, limit: 10).onSuccess { [weak _delegate] (repositories: [Repository]) in
-            _delegate?.didLoadRepositories(repositories: repositories)
+    func loadRepositories() {
+        queryRepositories()
+    }
+    
+    func loadNextRepositories() {
+        queryRepositories()
+    }
+    
+    // MARK: Private
+    
+    private func queryRepositories() {
+        service.repositories(from: cursor, limit: limit).onSuccess { [weak self] (repositories: [Repository]) in
+            self?.updateCursorPosition()
+            self?._delegate?.didLoadRepositories(repositories: repositories)
         }
+    }
+    
+    private func updateCursorPosition() {
+        cursor = cursor + limit
     }
 }

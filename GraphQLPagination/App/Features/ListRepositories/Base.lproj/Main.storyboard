@@ -29,6 +29,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="44" height="43.5"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="44" id="ju5-UD-FJS"/>
+                                                <constraint firstAttribute="height" constant="43.5" id="vxM-Hq-DZS"/>
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Repository Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Te6-tC-2hw">

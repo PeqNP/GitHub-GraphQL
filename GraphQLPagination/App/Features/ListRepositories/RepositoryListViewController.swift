@@ -21,7 +21,8 @@ protocol RepositoryListControllerDelegate: class {
 
 protocol RepositoryListController {
     var delegate: RepositoryListControllerDelegate? { get set }
-    func loadGraphQL()
+    func loadRepositories()
+    func loadNextRepositories()
 }
 
 class RepositoryListViewController: UITableViewController {
@@ -37,7 +38,7 @@ class RepositoryListViewController: UITableViewController {
         
         controller = RepositoryListCommandAndControl()
         controller?.delegate = self
-        controller?.loadGraphQL()
+        controller?.loadRepositories()
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -53,6 +54,10 @@ class RepositoryListViewController: UITableViewController {
             return UITableViewCell()
         }
         
+        if indexPath.row >= repositories.count - 1 {
+            controller?.loadNextRepositories()
+        }
+        
         cell.configureWith(repository: repositories[indexPath.row])
         return cell
     }
@@ -60,7 +65,7 @@ class RepositoryListViewController: UITableViewController {
 
 extension RepositoryListViewController: RepositoryListControllerDelegate {
     func didLoadRepositories(repositories: [Repository]) {
-        self.repositories = repositories
+        self.repositories = self.repositories + repositories
         tableView.reloadData()
     }
 }

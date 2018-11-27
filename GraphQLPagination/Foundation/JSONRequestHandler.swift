@@ -19,7 +19,6 @@ class JSONRequestHandler: RequestHandler {
                 print(response.error?.localizedDescription ?? "Error")
                 return
             }
-            print(String(bytes: data, encoding: .utf8) ?? "")
             let decoder = JSONDecoder()
             guard let response = try? decoder.decode(T.self, from: data) else {
                 promise.failure(.failedToDecode)

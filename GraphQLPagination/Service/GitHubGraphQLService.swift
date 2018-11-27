@@ -12,7 +12,7 @@ import Foundation
 
 private enum Constant {
     // Put your GitHub bearer token here
-    static let githubToken = "e054e5be10ac847cc69b342f0c05f3cc6cbf9912"
+    static let githubToken = "0e947078d77c5c672051ac38203f5bacf7ab0e3f"
 }
 
 class GitHubGraphQLService {
@@ -56,9 +56,10 @@ class GitHubGraphQLService {
         let headers: [String: String] = [
             "Authorization": "Bearer \(Constant.githubToken)"
         ]
+        // `cursor` is in some of the graph calls. This call needs a "cursor" and specified using `after`. I couldn't determine where the "cursor" ID was located within the given amount of time.
         let query = """
         query {
-            search(query: "graphql", type: REPOSITORY, first: 10) {
+        search(query: "graphql", type: REPOSITORY, first: 10) {
                 edges {
                     node { ... on Repository {
                         name
