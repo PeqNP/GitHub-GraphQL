@@ -13,15 +13,15 @@ protocol GraphQLController {
     func loadGraphQL()
 }
 
-struct GraphQL {
-    let avatarImageURL: URL
-    let repositoryName: String
-    let authorName: String
-    let rating: Double
+struct Repository {
+    let name: String
+    let ownerAvatarURL: URL
+    let ownerLogin: String
+    let totalStars: Int
 }
 
 protocol GraphQLControllerDelegate: class {
-    func didLoadGraphQL(graphs: [GraphQL])
+    func didLoadRepositories(repositories: [Repository])
 }
 
 class GraphQLTableViewController: UITableViewController {
@@ -30,7 +30,7 @@ class GraphQLTableViewController: UITableViewController {
     private var controller: GraphQLController?
     
     // MARK: Private
-    private var graphs: [GraphQL] = []
+    private var repositories: [Repository] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,7 +45,7 @@ class GraphQLTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return graphs.count
+        return repositories.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -53,14 +53,14 @@ class GraphQLTableViewController: UITableViewController {
             return UITableViewCell()
         }
         
-        cell.configureWith(graphQL: graphs[indexPath.row])
+        cell.configureWith(repository: repositories[indexPath.row])
         return cell
     }
 }
 
 extension GraphQLTableViewController: GraphQLControllerDelegate {
-    func didLoadGraphQL(graphs: [GraphQL]) {
-        self.graphs = graphs
+    func didLoadRepositories(repositories: [Repository]) {
+        self.repositories = repositories
         tableView.reloadData()
     }
 }
@@ -71,10 +71,10 @@ class GraphQLTableViewCell: UITableViewCell {
     @IBOutlet weak var authorNameLabel: UILabel!
     @IBOutlet weak var ratingLabel: UILabel!
     
-    func configureWith(graphQL: GraphQL) {
-        avatarImageView.kf.setImage(with: graphQL.avatarImageURL)
-        authorNameLabel.text = graphQL.authorName
-        repositoryNameLabel.text = graphQL.repositoryName
-        ratingLabel.text = String(graphQL.rating)
+    func configureWith(repository: Repository) {
+        avatarImageView.kf.setImage(with: repository.ownerAvatarURL)
+        authorNameLabel.text = repository.ownerLogin
+        repositoryNameLabel.text = repository.name
+        ratingLabel.text = String(repository.totalStars)
     }
 }
