@@ -14,5 +14,13 @@ enum NetworkError: Error {
 }
 
 protocol RequestHandler {
+    
+    /**
+     Make a request to a service and return the respective type.
+     
+     - parameter: `urlRequest` The URL request to execute
+     - parameter: `type` The type to decode/map the payload into
+     - returns: a `Future`
+     */
     func request<T: Decodable>(urlRequest: URLRequest, _ type: T.Type) -> Future<T, NetworkError>
 }
