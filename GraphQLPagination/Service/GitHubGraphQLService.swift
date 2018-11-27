@@ -12,7 +12,7 @@ import Foundation
 
 private enum Constant {
     // Put your GitHub bearer token here
-    static let githubToken = "0e947078d77c5c672051ac38203f5bacf7ab0e3f"
+    static let githubToken = ""
 }
 
 class GitHubGraphQLService {
