@@ -12,10 +12,12 @@
 		0717682D21AC932A00ED52C9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0717682C21AC932A00ED52C9 /* Assets.xcassets */; };
 		0717683021AC932A00ED52C9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0717682E21AC932A00ED52C9 /* LaunchScreen.storyboard */; };
 		0717683B21AC932B00ED52C9 /* GraphQLPaginationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0717683A21AC932B00ED52C9 /* GraphQLPaginationTests.swift */; };
-		07AAC73F21AC99B400DE3247 /* GraphQLTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07AAC73E21AC99B400DE3247 /* GraphQLTableViewController.swift */; };
 		07AAC74221AC9A1D00DE3247 /* JSONRequestHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07AAC74121AC9A1D00DE3247 /* JSONRequestHandler.swift */; };
 		07AAC74421AC9A3300DE3247 /* RequestHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07AAC74321AC9A3300DE3247 /* RequestHandler.swift */; };
-		07AAC74721AC9BE400DE3247 /* GraphQLCommandAndControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07AAC74621AC9BE400DE3247 /* GraphQLCommandAndControl.swift */; };
+		07AAC74721AC9BE400DE3247 /* RepositoryListCommandAndControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07AAC74621AC9BE400DE3247 /* RepositoryListCommandAndControl.swift */; };
+		07AAC74C21ACD73F00DE3247 /* RepositoryListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07AAC74B21ACD73F00DE3247 /* RepositoryListViewController.swift */; };
+		07AAC74E21ACD7E800DE3247 /* Dictionary+Upstart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07AAC74D21ACD7E800DE3247 /* Dictionary+Upstart.swift */; };
+		07AAC75021ACD82300DE3247 /* GitHubGraphQLService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07AAC74F21ACD82300DE3247 /* GitHubGraphQLService.swift */; };
 		C254E46E92229F3C68C248F7 /* Pods_GraphQLPagination.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABA7C962337858B6D753D1C2 /* Pods_GraphQLPagination.framework */; };
 /* End PBXBuildFile section */
 
@@ -39,10 +41,12 @@
 		0717683621AC932B00ED52C9 /* GraphQLPaginationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GraphQLPaginationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0717683A21AC932B00ED52C9 /* GraphQLPaginationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphQLPaginationTests.swift; sourceTree = "<group>"; };
 		0717683C21AC932B00ED52C9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		07AAC73E21AC99B400DE3247 /* GraphQLTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphQLTableViewController.swift; sourceTree = "<group>"; };
 		07AAC74121AC9A1D00DE3247 /* JSONRequestHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONRequestHandler.swift; sourceTree = "<group>"; };
 		07AAC74321AC9A3300DE3247 /* RequestHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestHandler.swift; sourceTree = "<group>"; };
-		07AAC74621AC9BE400DE3247 /* GraphQLCommandAndControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphQLCommandAndControl.swift; sourceTree = "<group>"; };
+		07AAC74621AC9BE400DE3247 /* RepositoryListCommandAndControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryListCommandAndControl.swift; sourceTree = "<group>"; };
+		07AAC74B21ACD73F00DE3247 /* RepositoryListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepositoryListViewController.swift; sourceTree = "<group>"; };
+		07AAC74D21ACD7E800DE3247 /* Dictionary+Upstart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+Upstart.swift"; sourceTree = "<group>"; };
+		07AAC74F21ACD82300DE3247 /* GitHubGraphQLService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubGraphQLService.swift; sourceTree = "<group>"; };
 		379073FE0FA099BCB1E2996E /* Pods-GraphQLPagination.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GraphQLPagination.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GraphQLPagination/Pods-GraphQLPagination.debug.xcconfig"; sourceTree = "<group>"; };
 		4B7BC74F6B61A780B28BD4AB /* Pods-GraphQLPagination.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GraphQLPagination.release.xcconfig"; path = "Pods/Target Support Files/Pods-GraphQLPagination/Pods-GraphQLPagination.release.xcconfig"; sourceTree = "<group>"; };
 		ABA7C962337858B6D753D1C2 /* Pods_GraphQLPagination.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GraphQLPagination.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -111,19 +115,19 @@
 			isa = PBXGroup;
 			children = (
 				07AAC73C21AC994900DE3247 /* Resources */,
-				07AAC73B21AC993200DE3247 /* Views */,
+				07AAC73B21AC993200DE3247 /* Features */,
 				0717682521AC932900ED52C9 /* AppDelegate.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
 		};
-		07AAC73B21AC993200DE3247 /* Views */ = {
+		07AAC73B21AC993200DE3247 /* Features */ = {
 			isa = PBXGroup;
 			children = (
 				07AAC74521AC9A5B00DE3247 /* ListRepositories */,
 				0717682E21AC932A00ED52C9 /* LaunchScreen.storyboard */,
 			);
-			path = Views;
+			path = Features;
 			sourceTree = "<group>";
 		};
 		07AAC73C21AC994900DE3247 /* Resources */ = {
@@ -139,6 +143,7 @@
 			children = (
 				07AAC74121AC9A1D00DE3247 /* JSONRequestHandler.swift */,
 				07AAC74321AC9A3300DE3247 /* RequestHandler.swift */,
+				07AAC74D21ACD7E800DE3247 /* Dictionary+Upstart.swift */,
 			);
 			path = Foundation;
 			sourceTree = "<group>";
@@ -146,9 +151,9 @@
 		07AAC74521AC9A5B00DE3247 /* ListRepositories */ = {
 			isa = PBXGroup;
 			children = (
-				07AAC73E21AC99B400DE3247 /* GraphQLTableViewController.swift */,
+				07AAC74621AC9BE400DE3247 /* RepositoryListCommandAndControl.swift */,
 				0717682921AC932900ED52C9 /* Main.storyboard */,
-				07AAC74621AC9BE400DE3247 /* GraphQLCommandAndControl.swift */,
+				07AAC74B21ACD73F00DE3247 /* RepositoryListViewController.swift */,
 			);
 			path = ListRepositories;
 			sourceTree = "<group>";
@@ -156,6 +161,7 @@
 		07AAC74821AC9FF300DE3247 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				07AAC74F21ACD82300DE3247 /* GitHubGraphQLService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -284,8 +290,6 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-GraphQLPagination/Pods-GraphQLPagination-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/Apollo/Apollo.framework",
-				"${BUILT_PRODUCTS_DIR}/ApolloAlamofire/ApolloAlamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/BrightFutures/BrightFutures.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
@@ -293,8 +297,6 @@
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Apollo.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ApolloAlamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BrightFutures.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
@@ -330,10 +332,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				07AAC74221AC9A1D00DE3247 /* JSONRequestHandler.swift in Sources */,
-				07AAC73F21AC99B400DE3247 /* GraphQLTableViewController.swift in Sources */,
+				07AAC74E21ACD7E800DE3247 /* Dictionary+Upstart.swift in Sources */,
 				07AAC74421AC9A3300DE3247 /* RequestHandler.swift in Sources */,
-				07AAC74721AC9BE400DE3247 /* GraphQLCommandAndControl.swift in Sources */,
+				07AAC75021ACD82300DE3247 /* GitHubGraphQLService.swift in Sources */,
+				07AAC74721AC9BE400DE3247 /* RepositoryListCommandAndControl.swift in Sources */,
 				0717682621AC932900ED52C9 /* AppDelegate.swift in Sources */,
+				07AAC74C21ACD73F00DE3247 /* RepositoryListViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

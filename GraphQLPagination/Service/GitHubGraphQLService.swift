@@ -1,63 +1,46 @@
 //
-//  GraphQLCommandAndControl.swift
+//  GitHubGraphQLService.swift
 //  GraphQLPagination
 //
 //  Created by Eric Chamberlain on 11/26/18.
 //  Copyright © 2018 Eric Chamberlain. All rights reserved.
 //
 
+import Alamofire
 import BrightFutures
 import Foundation
-
-enum GraphQLServiceError: Error {
-    case failedToQueryGraphs
-}
-
-protocol GraphQLService {
-    func repositories(from: Int, limit: Int) -> Future<[Repository], GraphQLServiceError>
-}
-
-class GraphQLCommandAndControl: GraphQLController {
-    
-    private let service: GraphQLService = GitHubGraphQLService()
-    
-    private weak var _delegate: GraphQLControllerDelegate?
-    
-    var delegate: GraphQLControllerDelegate? {
-        set {
-            _delegate = newValue
-        }
-        get {
-            return _delegate
-        }
-    }
-    
-    func loadGraphQL() {
-        service.repositories(from: 0, limit: 10).onSuccess { [weak _delegate] (repositories: [Repository]) in
-            _delegate?.didLoadRepositories(repositories: repositories)
-        }
-    }
-}
-
-// MARK:
-import Alamofire
 
 private enum Constant {
     static let githubToken = ""
 }
 
-extension Dictionary where Key == String {
-    var asData: Data? {
-        do {
-            let data = try JSONSerialization.data(withJSONObject: self, options: [])
-            return data
-        } catch _ {
-            return nil
+class GitHubGraphQLService {
+        
+    struct RepositoryResponse: Decodable {
+        struct DataResponse: Decodable {
+            let search: SearchResponse?
         }
+        struct SearchResponse: Decodable {
+            let edges: [SearchNode]?
+        }
+        struct SearchNode: Decodable {
+            let node: SearchedNode?
+        }
+        struct SearchedNode: Decodable {
+            let name: String?
+            let stargazers: Stargazers?
+            let owner: Owner?
+        }
+        struct Owner: Decodable {
+            let login: String?
+            let avatarUrl: String?
+        }
+        struct Stargazers: Decodable {
+            let totalCount: Int?
+        }
+        
+        let data: DataResponse?
     }
-}
-
-class GitHubGraphQLService: GraphQLService {
     
     func repositories(from: Int, limit: Int) -> Future<[Repository], GraphQLServiceError> {
         
@@ -114,33 +97,5 @@ class GitHubGraphQLService: GraphQLService {
         }
         
         return promise.future
-    }
-}
-
-extension GitHubGraphQLService {
-    struct RepositoryResponse: Decodable {
-        struct DataResponse: Decodable {
-            let search: SearchResponse?
-        }
-        struct SearchResponse: Decodable {
-            let edges: [SearchNode]?
-        }
-        struct SearchNode: Decodable {
-            let node: SearchedNode?
-        }
-        struct SearchedNode: Decodable {
-            let name: String?
-            let stargazers: Stargazers?
-            let owner: Owner?
-        }
-        struct Owner: Decodable {
-            let login: String?
-            let avatarUrl: String?
-        }
-        struct Stargazers: Decodable {
-            let totalCount: Int?
-        }
-        
-        let data: DataResponse?
     }
 }

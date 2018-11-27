@@ -8,11 +8,6 @@
 import UIKit
 import Kingfisher
 
-protocol GraphQLController {
-    var delegate: GraphQLControllerDelegate? { get set }
-    func loadGraphQL()
-}
-
 struct Repository {
     let name: String
     let ownerAvatarURL: URL?
@@ -20,14 +15,19 @@ struct Repository {
     let totalStars: Int
 }
 
-protocol GraphQLControllerDelegate: class {
+protocol RepositoryListControllerDelegate: class {
     func didLoadRepositories(repositories: [Repository])
 }
 
-class GraphQLTableViewController: UITableViewController {
+protocol RepositoryListController {
+    var delegate: RepositoryListControllerDelegate? { get set }
+    func loadGraphQL()
+}
 
-    // MARK: Injected Class(es)
-    private var controller: GraphQLController?
+class RepositoryListViewController: UITableViewController {
+
+    // MARK: Injected
+    private var controller: RepositoryListController?
     
     // MARK: Private
     private var repositories: [Repository] = []
@@ -35,7 +35,7 @@ class GraphQLTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        controller = GraphQLCommandAndControl()
+        controller = RepositoryListCommandAndControl()
         controller?.delegate = self
         controller?.loadGraphQL()
     }
@@ -58,7 +58,7 @@ class GraphQLTableViewController: UITableViewController {
     }
 }
 
-extension GraphQLTableViewController: GraphQLControllerDelegate {
+extension RepositoryListViewController: RepositoryListControllerDelegate {
     func didLoadRepositories(repositories: [Repository]) {
         self.repositories = repositories
         tableView.reloadData()
