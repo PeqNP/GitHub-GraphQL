@@ -17,6 +17,7 @@ struct Repository {
 
 protocol RepositoryListControllerDelegate: class {
     func didLoadRepositories(repositories: [Repository])
+    func displayError(error: Error)
 }
 
 protocol RepositoryListController {
@@ -67,6 +68,10 @@ extension RepositoryListViewController: RepositoryListControllerDelegate {
     func didLoadRepositories(repositories: [Repository]) {
         self.repositories = self.repositories + repositories
         tableView.reloadData()
+    }
+    
+    func displayError(error: Error) {
+        // TODO: Use dependency to display the error.
     }
 }
 

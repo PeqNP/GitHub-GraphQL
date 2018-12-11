@@ -72,9 +72,13 @@ class RepositoryListCommandAndControl: RepositoryListController {
     // MARK: Private
     
     private func queryRepositories(cursor: Any? = nil) {
-        service.repositories(from: cursor, limit: limit).onSuccess { [weak self] (query: RepositoryQuery) in
-            self?.cursor = query.cursor
-            self?._delegate?.didLoadRepositories(repositories: query.repositories)
-        }
+        service.repositories(from: cursor, limit: limit)
+            .onSuccess { [weak self] (query: RepositoryQuery) in
+                self?.cursor = query.cursor
+                self?._delegate?.didLoadRepositories(repositories: query.repositories)
+            }
+            .onFailure { [weak self] (error) in
+                self?.delegate?.displayError(error: error)
+            }
     }
 }
