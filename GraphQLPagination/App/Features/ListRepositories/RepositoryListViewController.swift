@@ -22,6 +22,7 @@ protocol RepositoryListControllerDelegate: class {
 
 protocol RepositoryListController {
     var delegate: RepositoryListControllerDelegate? { get set }
+    
     func loadRepositories()
     func loadNextRepositories()
 }
@@ -37,7 +38,7 @@ class RepositoryListViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        controller = RepositoryListCommandAndControl()
+        controller = RepositoryListOrchestrator()
         controller?.delegate = self
         controller?.loadRepositories()
     }

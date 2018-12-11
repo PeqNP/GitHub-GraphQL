@@ -44,7 +44,7 @@ protocol RepositoryService {
  */
 extension GitHubGraphQLService: RepositoryService { }
 
-class RepositoryListCommandAndControl: RepositoryListController {
+class RepositoryListOrchestrator: RepositoryListController {
     
     private let service: RepositoryService = GitHubGraphQLService()
     
