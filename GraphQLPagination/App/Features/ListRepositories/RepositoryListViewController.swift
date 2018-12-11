@@ -9,10 +9,13 @@ import UIKit
 import Kingfisher
 
 struct Repository {
+    let id: String
     let name: String
     let ownerAvatarURL: URL?
     let ownerLogin: String
     let totalStars: Int
+    let isFork: Bool
+    let isMirror: Bool
 }
 
 protocol RepositoryListControllerDelegate: class {
@@ -56,7 +59,7 @@ class RepositoryListViewController: UITableViewController {
             return UITableViewCell()
         }
         
-        if indexPath.row >= repositories.count - 1 {
+        if indexPath.row >= repositories.count - 5 {
             controller?.loadNextRepositories()
         }
         

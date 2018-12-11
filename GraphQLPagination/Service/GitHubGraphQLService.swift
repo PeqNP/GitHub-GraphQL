@@ -12,7 +12,7 @@ import Foundation
 
 private enum Constant {
     // Put your GitHub bearer token here
-    static let githubToken = "252644dd774ea511632d0081cc0f3d04006ad4eb"
+    static let githubToken = ""
 }
 
 class GitHubGraphQLService {
@@ -35,9 +35,12 @@ class GitHubGraphQLService {
             let node: Repository?
         }
         struct Repository: Decodable {
+            let id: String?
             let name: String?
             let stargazers: Stargazers?
             let owner: Owner?
+            let isFork: Bool
+            let isMirror: Bool
         }
         struct Owner: Decodable {
             let login: String?
@@ -58,24 +61,31 @@ class GitHubGraphQLService {
             return promise.future
         }
         
-        requestHandler.request(urlRequest: urlRequest, GitHubGraphQLService.RepositoryResponse.self).onSuccess { (response) in
-            let cursor = response.data?.search?.pageInfo?.endCursor
-            guard let edges = response.data?.search?.edges else {
-                return promise.success(RepositoryQuery(cursor: cursor, repositories: [Repository]()))
+        requestHandler.request(urlRequest: urlRequest, GitHubGraphQLService.RepositoryResponse.self)
+            .onSuccess { (response) in
+                let cursor = response.data?.search?.pageInfo?.endCursor
+                guard let edges = response.data?.search?.edges else {
+                    return promise.success(RepositoryQuery(cursor: cursor, repositories: [Repository]()))
+                }
+                
+                let repositories: [Repository] = edges.map { (edge: GitHubGraphQLService.RepositoryResponse.Edge) -> Repository in
+                    return Repository(
+                        id: edge.node?.id ?? "",
+                        name: edge.node?.name ?? "",
+                        ownerAvatarURL: URL(string: edge.node?.owner?.avatarUrl ?? ""),
+                        ownerLogin: edge.node?.owner?.login ?? "",
+                        totalStars: edge.node?.stargazers?.totalCount ?? 0,
+                        isFork: edge.node?.isFork ?? false,
+                        isMirror: edge.node?.isMirror ?? false
+                    )
+                }
+                
+                let query = RepositoryQuery(cursor: cursor, repositories: repositories)
+                return promise.success(query)
             }
-            
-            let repositories: [Repository] = edges.map { (edge: GitHubGraphQLService.RepositoryResponse.Edge) -> Repository in
-                return Repository(
-                    name: edge.node?.name ?? "",
-                    ownerAvatarURL: URL(string: edge.node?.owner?.avatarUrl ?? ""),
-                    ownerLogin: edge.node?.owner?.login ?? "",
-                    totalStars: edge.node?.stargazers?.totalCount ?? 0
-                )
+            .onFailure { (error) in
+                promise.failure(RepositoryListServiceError.failedToQueryRepositories)
             }
-            
-            let query = RepositoryQuery(cursor: cursor, repositories: repositories)
-            return promise.success(query)
-        }
         
         return promise.future
     }
@@ -108,7 +118,10 @@ class GitHubGraphQLService {
                 pageInfo { endCursor }
                 edges {
                     node { ... on Repository {
+                        id
                         name
+                        isFork
+                        isMirror
                         stargazers { totalCount }
                         owner {
                             login

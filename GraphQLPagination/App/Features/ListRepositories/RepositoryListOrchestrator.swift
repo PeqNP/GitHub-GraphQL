@@ -44,13 +44,20 @@ protocol RepositoryService {
  */
 extension GitHubGraphQLService: RepositoryService { }
 
+enum CursorState: Equatable {
+    case notset
+    case initial
+    case loading
+    case next(String?)
+}
+
 class RepositoryListOrchestrator: RepositoryListController {
     
     private let service: RepositoryService = GitHubGraphQLService()
     
     private weak var _delegate: RepositoryListControllerDelegate?
     private var limit: Int = 10
-    private var cursor: String? = nil
+    private var cursor: CursorState = .notset
     
     var delegate: RepositoryListControllerDelegate? {
         set {
@@ -62,7 +69,7 @@ class RepositoryListOrchestrator: RepositoryListController {
     }
     
     func loadRepositories() {
-        queryRepositories()
+        queryRepositories(cursor: .initial)
     }
     
     func loadNextRepositories() {
@@ -71,10 +78,22 @@ class RepositoryListOrchestrator: RepositoryListController {
     
     // MARK: Private
     
-    private func queryRepositories(cursor: Any? = nil) {
-        service.repositories(from: cursor, limit: limit)
+    private func queryRepositories(cursor: CursorState) {
+        // NOTE: This will prevent multiple calls from being made using the same `cursor`. However, this shouldn't happen in practice. I have not observed it either.
+        guard cursor != .loading else {
+            return
+        }
+        
+        var from: String?
+        if case .next(let cursor) = cursor {
+            from = cursor
+        }
+        
+        self.cursor = .loading
+        
+        service.repositories(from: from, limit: limit)
             .onSuccess { [weak self] (query: RepositoryQuery) in
-                self?.cursor = query.cursor
+                self?.cursor = .next(query.cursor)
                 self?._delegate?.didLoadRepositories(repositories: query.repositories)
             }
             .onFailure { [weak self] (error) in
